@@ -1,0 +1,5 @@
+pasos para compilar: 
+
+nasm -f elf  modulo.asm
+nasm -f elf -d ELF_TYPE funciones.asm
+gcc -m32 -o calc calculadora.c modulo.o funciones.o
