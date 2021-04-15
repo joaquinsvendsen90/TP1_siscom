@@ -12,7 +12,7 @@ formato_string db "%s", 0
 formato_entero db "%i", 0
 
 segment .text
-    global imprimir_cadena, leer_entrada, imprimir_entero
+    global imprimir_cadena, leer_entrada, imprimir_entero, salto_linea
     extern _scanf, _printf, _getchar, _putchar
 
 
@@ -62,6 +62,20 @@ imprimir_entero:
 	pop	ecx
 	pop	ecx
 
+	popf
+	popa
+	leave
+	ret
+salto_linea:
+	enter	0,0
+	pusha
+	pushf
+
+	push	dword 10	; 10 == ASCII code for \n
+	call	_putchar
+	
+	pop	ecx
+	
 	popf
 	popa
 	leave
