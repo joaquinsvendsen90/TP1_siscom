@@ -19,6 +19,7 @@ resta_enteros:
         call salto_linea
         
         popf
-        popa    
+        popa
+            
         leave
         ret

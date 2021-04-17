@@ -1,6 +1,0 @@
-pasos para compilar: 
-
-nasm -f elf  suma_enteros.asm
-nasm -f elf  resta_enteros.asm
-nasm -f elf -d ELF_TYPE funciones.asm
-gcc -m32 -o calc calculadora.c suma_enteros.o resta_enteros.o suma_binarios.o resta_binarios.o funciones.o

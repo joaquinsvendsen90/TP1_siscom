@@ -2,7 +2,7 @@ segment .data
 numero1 dw 0        ;declaro una variable de 16 bits, inicializada en 0
 numero2 dd 0
 
-cadena  db "OVERFLOW", 0
+;cadena  db "OVERFLOW", 0
 segment .bss
 entrada2  resd 1 
 segment .text
@@ -23,19 +23,19 @@ resta_binarios:
     leave
     ret
 
-contiene_cf:
-    pusha
-    pushf
+;contiene_cf:
+    ;pusha
+    ;pushf
 
-    mov eax, cadena
-    call imprimir_cadena
-    call salto_linea
+    ;mov eax, cadena
+    ;call imprimir_cadena
+    ;call salto_linea
 
-    popf
-    pusha
+    ;popf
+    ;pusha
 
-    leave
+    ;leave
 
-    mov eax, 1                ;con la int 0x80 se le notifica al nucleo que queremos hacer una llamada al sistema
-    mov ebx, 0                ;un valor de 1 en eax, quiere decir que queremos hacer una llamada de exit().
-    int 0x80                  ;ya que si tenemos overflow en el resultado de la suma, queremos terminar el programa.
+    ;mov eax, 1                ;con la int 0x80 se le notifica al nucleo que queremos hacer una llamada al sistema
+    ;mov ebx, 0                ;un valor de 1 en eax, quiere decir que queremos hacer una llamada de exit().
+    ;int 0x80                  ;ya que si tenemos overflow en el resultado de la suma, queremos terminar el programa.

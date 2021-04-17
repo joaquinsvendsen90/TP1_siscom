@@ -9,8 +9,8 @@ void suma_enteros( int,int ) __attribute__((cdecl));
 void resta_enteros( int,int ) __attribute__((cdecl));
 int suma_binarios( int,int ) __attribute__((cdecl));
 int resta_binarios( int,int ) __attribute__((cdecl));
-int conversorBinarioDecimal( char * );
-void conversorDecimalBinario( int );
+int conversorBinarioEntero( char * );
+void conversorEnteroBinario( int );
 void lecturaNumero( char *);
 
 
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]){
             resta_enteros(operando1, operando2);
         }
         else{
-            printf("Ingresaste un operador invalido para la operacion decimal. Los operadores validos son: + o -\n");
+            printf("Ingresaste un operador invalido para la operacion de enteros. Los operadores validos son: + o -\n");
         }
     }
 
@@ -47,27 +47,26 @@ int main(int argc, char *argv[]){
             printf("Debes introducir un binario de 16 bits como maximo!. ");
             exit(1);
         }
-        operando1 = conversorBinarioDecimal(argv[2]);
-        operando2 = conversorBinarioDecimal(argv[4]);
+        operando1 = conversorBinarioEntero(argv[2]);
+        operando2 = conversorBinarioEntero(argv[4]);
         if(strcmp(argv[3],"+") == 0){                       //operacion de suma de binarios
             resultado = suma_binarios(operando1, operando2);
-            //printf("El resultado de la suma es: %d\n", resultado);
-            conversorDecimalBinario(resultado);
+            conversorEnteroBinario(resultado);
         }
         else if(strcmp(argv[3],"-") == 0){                  //operacion de resta de binarios
             resultado = resta_binarios(operando1, operando2);
-            printf("El resultado de la resta es: %d\n", resultado);
-            conversorDecimalBinario(resultado);
+            conversorEnteroBinario(resultado);
         }
         else{
             printf("Ingresaste un operador invalido para la operacion binaria. Los operadores validos son: + o -\n");
         }
 
     }
+    return 0;
 }
 
 
-int conversorBinarioDecimal(char *numerobin){
+int conversorBinarioEntero(char *numerobin){
     
     char binario[BITS];           //cadena en la que se almacenara el numero binario ingresado
     strcpy(binario, numerobin);
@@ -104,15 +103,26 @@ void lecturaNumero(char *cadena){
         strcpy(cadena, binarioNuevo);  //copio el numero rellenado en la cadena que se retornará
     }
 }
-void conversorDecimalBinario(int numero){
+void conversorEnteroBinario(int numero){
     char binario[BITS];
     int contador = BITS - 1;
     int resto, decimal = numero;
+    int cantBits = 0;
     bool negativo = false;
-    //printf("el valordecimal es: %d\n", decimal);
-    if(decimal < 0){
+
+    while(numero!=0){           //saco la cantidad de bits que tiene el numero decimal.
+    numero = numero / 2;
+    cantBits++;
+    }
+    if(cantBits > BITS){        //si hay overflow, retorno un -1
+        //printf("hay overflow!! la cantidad de bits de ese decimal es: %d\n", cantBits);
+        printf("%d\n", -1);
+        exit(1);
+    }
+
+    if(decimal < 0){        //si el resultado de la operacion es negativo, lo invertimos. para poder desglosar el binario de ese decimal.
         negativo = true;
-        decimal = decimal + (2*decimal);
+        decimal = decimal - (2*decimal);
     }
     
     while(contador > -1){       //realizo la conversion de decimal a binario.
@@ -127,7 +137,7 @@ void conversorDecimalBinario(int numero){
         contador--;
     }
     if(negativo == true){           //si el resultado es negativo, le agrego un "-"
-        printf("- %s\n", binario);
+        printf("-%s\n", binario);
     }
     else{
         printf("%s\n", binario);

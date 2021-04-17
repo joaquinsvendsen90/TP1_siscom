@@ -22,9 +22,13 @@ assert_equals "$response" -10
 
 response=$(./calc binario 01 + 100)
 assert_equals "$response" 0000000000000101
-
+#cuando hay overflow debido a que el resultado de la suma se pasa de los 16 bits. retorna un -1
 response=$(./calc binario 1111111111111111 + 01)
-assert_equals "$response" OVERFLOW
+assert_equals "$response" -1
+
+response=$(./calc binario 0000000000000011 - 0000000000001010)
+assert_equals "$response" -0000000000000111
+
 
 
 
