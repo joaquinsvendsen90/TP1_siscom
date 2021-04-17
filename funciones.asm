@@ -1,5 +1,3 @@
-
-
 %ifdef ELF_TYPE
   %define _scanf   scanf
   %define _printf  printf
@@ -15,9 +13,8 @@ segment .text
     global imprimir_cadena, leer_entrada, imprimir_entero, salto_linea
     extern _scanf, _printf, _getchar, _putchar
 
-
 imprimir_cadena:
-    
+
     enter 0,0   ;prologo. se guarda ebp en la pila, y se iguala ebp a esp , etc
     pusha       ;guardamos en la pila el estado actual de todos los registros del procesador
 
@@ -67,6 +64,7 @@ imprimir_entero:
 	leave
 	ret
 salto_linea:
+	
 	enter	0,0
 	pusha
 	pushf
